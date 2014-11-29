@@ -1,0 +1,780 @@
+
+
+%version of 2010-09-25
+
+\documentclass[a4paper,11pt,reqno]{article}
+%\usepackage{amsmath}
+
+%\documentclass[12pt,reqno,draft,backrefs]{article}
+%\usepackage[color]{showkeys}
+
+\usepackage{color}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{green}{rgb}{0,1,0}
+\definecolor{blue}{rgb}{0,0,1}
+\definecolor{refkey}{gray}{.625}
+\definecolor{labelkey}{gray}{.625}
+
+% AUTHOR MARGIN NOTES:
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize #1]%
+{\raggedright\footnotesize #1}}
+\newcommand{\mathieu}[1]{\marginpar{\textcolor{red}{Mathieu: #1}}}
+\newcommand{\ping}[1]{\marginpar{\textcolor{green}{Ping: #1}}}
+
+\newcommand{\rood}[1]{\textcolor{red}{#1}}
+\newcommand{\blauw}[1]{\textcolor{blue}{#1}}
+\newcommand{\groen}[1]{\textcolor{green}{#1}}
+
+
+\usepackage{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEXT STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{algorithm}
+\usepackage{xcolor}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{listings}
+\lstset{language=Matlab}%代码语言使用的是matlab
+\lstset{breaklines}%自动将长的代码行换行排版
+\lstset{extendedchars=false}%解决代码跨页时，章节标题，页眉等汉字不显示的问题
+
+\lstset{numbers=left,
+numberstyle= \tiny,
+keywordstyle= \color{ blue!70},commentstyle=\color{red!50!green!50!blue!50},
+frame=shadowbox,
+rulesepcolor= \color{ red!20!green!20!blue!20}
+}
+
+\usepackage{setspace}
+\setlength\parskip{\medskipamount} \setlength\parindent{0pt}
+\usepackage{indentfirst}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GEOMETRY, PAGE STYLE and HYPERLINKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+
+%%% UNCOMMENT IF USING AMSREFS
+%\usepackage[nobysame,msc-links]{amsrefs}
+%\usepackage[msc-links]{amsrefs}
+%%\newcommand{\eprint}[1]{\url{#1}}
+\usepackage{amsrefs}
+\renewcommand{\eprint}[1]{\href{http://arxiv.org/abs/#1}{\texttt{arXiv:#1}}}
+
+ %\usepackage[msc-links]{amsrefs}
+ %
+\newcommand{\doi}[1]{\href{http://dx.doi.org/#1}{\texttt{#1}}}
+\newcommand{\printurl}[1]{\href{#1}{\texttt{#1}}}
+
+%%% UNCOMMENT IF USING BIBTEX
+%\newcommand{\cites}[1]{\cite{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BULLETS AND NUMBERING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand\labelenumi{\theenumi .}
+%\newcommand\theenumi{\arabic{enumi}}
+
+\renewcommand\labelenumi{\upshape{\theenumi}\ }
+\renewcommand{\theenumi}{(\alph{enumi})} % (a) (b) (c) (d) (e)
+\renewcommand\labelenumii{\theenumii .}
+\renewcommand{\theenumii}{\arabic{enumii}} % 1. 2. 3. 4. 5.
+\renewcommand\labelenumiii{(\theenumiii)}
+\renewcommand{\theenumiii}{\arabic{enumiii}} % (1) (2) (3) (4) (5)
+\renewcommand\labelenumiv{\theenumiv .}
+\renewcommand{\theenumiv}{\Roman{enumiv}} % I. II. III. IV. V.
+
+%%% following three commands for creation of "broken enumeration"
+\newcommand{\NEW}[1]{\newcounter{#1}}% create new counter at beginning of first enumeration
+\newcommand{\STO}[1]{\setcounter{#1}{\value{enumi}}} % save value of counter in memory at end of each enumeration
+\newcommand{\RCL}[1]{\setcounter{enumi}{\value{#1}}} % recall value of counter at beginning of next enumeration
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MATH SYMBOLS AND FONTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[intlimits]{amsmath}
+%\allowdisplaybreaks[1]
+%\mathindent=1cm
+\usepackage{amssymb}
+%\usepackage{eufrak}
+%%\usepackage{wasysym}
+%%\usepackage{pifont}
+\usepackage{mathrsfs}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMMUTATIVE DIAGRAMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amscd}
+
+\usepackage{graphicx}
+\usepackage[all]{xy}
+% Double fleche dans un diagramme commutatif:
+\def\dar[#1]{\ar@<2pt>[#1]\ar@<-2pt>[#1]}
+% Shortcut for usual commutative square:
+%\newcommand{\comsq}[8]{\xymatrix{ #1 \ar[r]^{#2} \ar[d]_{#4} & #3 \ar[d]^{#5} \\ #6 \ar[r]_{#7} & #8 }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THM, DEF, PROOF, ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsthm}
+
+\theoremstyle{plain}% default
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{lem}[prop]{Lemma}
+\newtheorem{fact}[prop]{Fact}
+\newtheorem{facts}[prop]{Facts}
+\newtheorem{sublem}[prop]{Sublemma}
+\newtheorem{cor}[prop]{Corollary}
+\newtheorem{thm}[prop]{Theorem}
+\newtheorem{hypo}[prop]{Hypothesis}
+\newtheorem{question}[prop]{Question}
+\newtheorem{conjecture}[prop]{Conjecture}
+\newtheorem{scholum}[prop]{Scholum}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{lem*}{Lemma}
+\newtheorem*{sublem*}{Sublemma}
+\newtheorem*{cor*}{Corollaire}
+\newtheorem*{thm*}{Theorem}
+%\newtheorem*{thm*}{Th\'eor\`eme}
+\newtheorem*{hypo*}{Hypothesis}
+\newtheorem*{question*}{Question}
+\newtheorem*{conjecture*}{Conjecture}
+\newtheorem*{scholum*}{Scholum}
+\newtheorem{defn}[prop]{Definition}
+\newtheorem*{defn*}{Definition}
+%\newtheorem*{defn*}{D\'efinition}
+
+\newtheoremstyle{slanted}% name
+  {3pt}%      Space above, empty = `usual value'
+  {3pt}%      Space below
+  {\slshape}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {.}%        Punctuation after thm head
+  {.5em}%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}% Thm head spec
+
+\theoremstyle{slanted}
+%\newtheorem{example}[prop]{Example}
+%\newtheorem{examples}[prop]{Examples}
+%\newtheorem*{example*}{Example}
+%\newtheorem*{examples*}{Examples}
+\newtheorem{ex}[prop]{Example}
+\newtheorem{exs}[prop]{Examples}
+\newtheorem*{ex*}{Example}
+\newtheorem*{exs*}{Examples}
+%\newtheorem{remark}[prop]{Remark}
+%\newtheorem{remarks}[prop]{Remarks}
+%\newtheorem*{remark*}{Remark}
+%\newtheorem*{remarks*}{Remarks}
+\newtheorem{rmk}[prop]{Remark}
+\newtheorem{rmks}[prop]{Remarks}
+\newtheorem*{rmk*}{Remark}
+\newtheorem*{rmks*}{Remarks}
+\newtheorem{notation}[prop]{Notation}
+\newtheorem*{notation*}{Notation}
+
+\theoremstyle{definition}
+\newtheorem{con}[prop]{Construction}
+\newtheorem{note}[prop]{Note}
+\newtheorem*{con*}{Construction}
+\newtheorem*{note*}{Note}
+
+\theoremstyle{remark}
+\newtheorem{warning}[prop]{Warning}
+\newtheorem{shortnote}[prop]{Note}
+\newtheorem{claim}[prop]{Claim}
+\newtheorem{axiom}[prop]{Axiom}
+\newtheorem*{warning*}{Warning}
+\newtheorem*{shortnote*}{Note}
+\newtheorem*{claim*}{Claim}
+\newtheorem*{axiom*}{Axiom}
+
+
+\newcommand{\BT}[1]{\begin{thm}\label{T:#1}}
+\newcommand{\ET}{\end{thm}}
+\newcommand{\RT}[1]{Theorem~\ref{T:#1}}
+\newcommand{\BL}[1]{\begin{lem}\label{L:#1}}
+\newcommand{\EL}{\end{lem}}
+\newcommand{\RL}[1]{Lemma~\ref{L:#1}}
+\newcommand{\BC}[1]{\begin{cor}\label{C:#1}}
+\newcommand{\EC}{\end{cor}}
+\newcommand{\RC}[1]{Corrolary~\ref{C:#1}}
+\newcommand{\BP}[1]{\begin{prop}\label{P:#1}}
+\newcommand{\EP}{\end{prop}}
+\newcommand{\RP}[1]{Proposition~\ref{P:#1}}
+\newcommand{\BD}[1]{\begin{defn}\label{D:#1}}
+\newcommand{\ED}{\end{defn}}
+\newcommand{\RD}[1]{Definition~\ref{D:#1}}
+\newcommand{\BE}[1]{\begin{ex}\label{E:#1}}
+\newcommand{\EE}{\end{ex}}
+\newcommand{\RE}[1]{Example~\ref{E:#1}}
+\newcommand{\BR}[1]{\begin{rmk}\label{R:#1}}
+\newcommand{\ER}{\end{rmk}}
+\newcommand{\RR}[1]{Remark~\ref{R:#1}}
+\newcommand{\BM}[1]{\begin{equation}\label{M:#1}}
+\newcommand{\EM}{\end{equation}}
+\newcommand{\RM}[1]{Equation~\eqref{M:#1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DeclareMathOperator
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\ad}{ad} \DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\AD}{\mathbf{Ad}} \DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\id}{id} \DeclareMathOperator{\hol}{hol}
+\DeclareMathOperator{\iso}{iso} \DeclareMathOperator{\out}{out}
+\DeclareMathOperator{\loc}{loc} \DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\End}{End} \DeclareMathOperator{\Hol}{Hol}
+\DeclareMathOperator{\Hom}{Hom} \DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+%\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\aut}{\mathfrak{aut}}
+\DeclareMathOperator{\Ver}{Ver} \DeclareMathOperator{\Hor}{Hor}
+\DeclareMathOperator{\Lie}{Lie} \DeclareMathOperator{\hor}{hor}
+\DeclareMathOperator{\obs}{obs} \DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\supp}{supp} \DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\LMC}{LMC}
+\DeclareMathOperator{\isom}{\underline{Isom}}
+\DeclareMathOperator{\Dir}{Dir}
+\DeclareMathOperator{\Diffeo}{Diffeo}
+%\DeclareMathOperator{\Re}{Re} % real part
+%\DeclareMathOperator{\Im}{Im} % imaginary part
+%\DeclareMathOperator{\Sp}{Sp} % symplectic group
+\DeclareMathOperator{\DER}{Der} \DeclareMathOperator{\DR}{DR}
+\DeclareMathOperator{\trace}{tr} \DeclareMathOperator{\TOP}{top}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NEW COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\emphdefn}[1]{\textbf{#1}} % concept being defined
+
+%%% numbered equation
+%\newcommand{\beq}[1]{\begin{equation}\label{#1}}
+%\newcommand{\eeq}{\end{equation}}
+
+\newcommand{\JJ}{\mathbb{J}} % generalized complex structure in this paper
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\KK}{\Bbbk}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+
+\newcommand{\thalf}{\tfrac{1}{2}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\rond}{\circ}
+\newcommand{\smalcirc}{\mbox{\tiny{$\circ$}}}
+\newcommand{\cc}[1]{\overline{#1}} % complex conjugate of
+
+\newcommand{\gendex}[2]{\left\{ #1 \right\}_{#2}}
+\newcommand{\genrel}[2]{\left\{ #1 | #2 \right\}}
+
+\newcommand{\cinf}[1]{C^{\infty}(#1)}
+\newcommand{\sections}[1]{ {\pmb{ \Gamma}} (#1)}
+\newcommand{\XX}{\mathfrak{X}} % vector fields
+\newcommand{\OO}{\Omega} % differential forms
+
+%%% arrows
+\newcommand{\toto}{\rightrightarrows}
+\newcommand{\from}{\leftarrow}
+\newcommand{\lto}{\longrightarrow}
+\newcommand{\lfrom}{\longleftarrow}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\xfrom}[1]{\xleftarrow{#1}}
+\newcommand{\injection}{\hookrightarrow}
+\newcommand{\surjection}{\twoheadrightarrow}
+\newcommand{\isomorphism}{\cong}%{\simeq}
+\newcommand{\equivalence}{\equiv}
+\newcommand{\ssi}{\Leftrightarrow}
+%\newcommand{\implies}{\Rightarrow}
+
+\newcommand{\diese}{^{\sharp}}
+\newcommand{\bemol}{^{\flat}}
+\newcommand{\cmplx}{_{\mathbb{C}}} % complexified
+\newcommand{\ortho}{^{\perp}} % orthogonal subspace
+\newcommand{\ann}{^0} % annihilator
+\newcommand{\transpose}{^{\top}} % put this behind matrix to mean transpose
+\newcommand{\inv}{^{-1}}
+\newcommand{\simplicial}{_{\scriptscriptstyle\bullet}}
+\newcommand{\graded}{^{\scriptscriptstyle\bullet}}
+
+\newcommand{\cech}{\v{C}ech }
+\newcommand{\mfg}{\mathfrak{g}} % Lie algebra of group $G$
+\newcommand{\mfgs}{\mathfrak{g}^*} % \mfg star =  dual of lie algebra
+
+% New commands for paper with ChenZhuo:
+% New commands for paper with ChenZhuo:
+
+\newcommand{\DD}{\mathcal{D}}
+\newcommand{\clifford}[1]{\mathcal{C}(#1)}
+\newcommand{\ba}[2]{[#1,#2]}
+\newcommand{\bas}[2]{[#1,#2]_*}
+\newcommand{\bapi}[2]{[#1,#2]_{\pi}}
+\newcommand{\md}[1]{\mathcal{L}_{#1}}
+\newcommand{\ld}[1]{\mathcal{L}_{#1}}
+\newcommand{\ii}[1]{\iota_{#1}}
+\newcommand{\duality}[2]{\langle #1 | #2 \rangle}
+\newcommand{\ip}[2]{\langle #1 , #2 \rangle}
+\newcommand{\cb}[2]{\llbracket #1 , #2 \rrbracket}
+\newcommand{\lb}[2]{[ #1 , #2 ]}
+\newcommand{\db}[2]{#1 \circ #2}
+\newcommand{\dbH}[2]{#1 \circ_H #2}
+\newcommand{\anchor}{a}
+\newcommand{\anchors}{\anchor_*}
+\newcommand{\dee}{d}
+\newcommand{\dees}{\dee_*}
+\newcommand{\del}{\mathfrak{d}}
+\newcommand{\dels}{\del_*}
+\newcommand{\lap}{\Delta}
+\newcommand{\laps}{\Delta_*}
+\newcommand{\Dee}{D}
+\newcommand{\Dees}{\Dee_*}
+\newcommand{\dirac}{D}
+\newcommand{\diracs}{\dirac_*}
+\newcommand{\bdirac}{\breve{\dirac}}
+\newcommand{\bdiracs}{\bdirac_*}
+\newcommand{\bdee}{\breve{\dee}}
+\newcommand{\bdees}{\bdee_*}
+\newcommand{\fsmile}{\breve{f}}
+\newcommand{\bdel}{\breve{\partial}}
+\newcommand{\bdels}{\bdel_*}
+\newcommand{\module}{\mathscr{L}}
+\newcommand{\explicit}{(\wedge^r A\otimes\wedge^m \TsCM)^{\half}}
+\newcommand{\derham}{d_{\DR}}
+
+
+% CHEN ZHUO's commands
+\newcommand{\lon }{\,\rightarrow\,}
+%\newcommand{\pf}{\noindent{\bf Proof.}\ }
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+%\newcommand{\rhoA}{\rho }
+\newcommand{\rhoA}{\anchor }
+\newcommand{\Abracket}[1]{[#1] }
+\newcommand{\rhoAs}{\anchors}
+\newcommand{\As}{A^*}
+\newcommand{\Bs}{B^*}
+\newcommand{\Asbracket}[1]{[#1]_*}
+\newcommand{\ds}{d_*}
+\newcommand{\dA}{d }
+\newcommand{\LieDer}{\mathcal{L} }
+\newcommand{\pairing}[2]{\left\langle #1  ~|~  #2 \right\rangle}
+\newcommand{\CIM}{C^{\infty}(M)}
+\newcommand{\Dorfman}{\circ}%{ \vartriangleleft }
+%\newcommand{\inserts}{\imath}
+\newcommand{\inserts}{\iota}
+\newcommand{\contract}{\lrcorner\,}
+\newcommand{\spairing}[1]{\left\lceil  #1\right\rceil}
+\newcommand{\ppairing}[1]{\left\langle #1 \right\rangle}
+\newcommand{\psipairing}[1]{\left\langle #1 \right\rangle_{\psi}}
+\newcommand{\phipairing}[1]{\left\langle #1 \right\rangle_{\phi}}
+\newcommand{\bookpairing}[1]{~ \ll  #1  \gg~}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\LieG}{\mfg}
+\newcommand{\LieGs}{\mfgs}
+\newcommand{\TsP}{T^*P}
+\newcommand{\pisharp}{\pi\diese}
+\newcommand{\Ns}{N^*}
+\newcommand{\defbe}{\triangleq}
+%\newcommand{\pibracket}[2]{\lb{#1}{#2}_{\pi}}
+\newcommand{\pibracket}[1]{\left [ #1\right ]_{\pi}}
+\newcommand{\Lambdabracket}[1]{\left [ #1\right ]_{\Lambda}}
+\newcommand{\Poissonbracket}[1]{\left \{ #1\right \}}
+\newcommand{\Lambdasharp}{\Lambda^\sharp}
+\newcommand{\rhopi}{\rho_{\pi}}
+\newcommand{\rhoLambda}{\rho_{*}}
+\newcommand{\Ker}{\mathrm{Ker}}
+\newcommand{\Ts}{T^*}
+\newcommand{\TC}{T_{\CC}}
+\newcommand{\TsC}{T^*_{\CC}}
+\newcommand{\dH}{d^H}
+\newcommand{\pd}{\partial}
+\newcommand{\barpd}{\bar{ \partial}}
+\newcommand{\olu}{\overline{u}}
+\newcommand{\olV}{\overline{\V}}
+\newcommand{\olN}{\overline{N}}
+\newcommand{\olL}{\overline{L} }
+\newcommand{\ole}{\overline{e}  }
+\newcommand{\Mukai}[2]{{\big(}#1,#2{\big)}}
+\newcommand{\GCCM}{\mathcal{M}}
+\newcommand{\V}{V}
+\newcommand{\nolL}{L}
+\newcommand{\TCM}{T_{\CC}M}
+\newcommand{\TsCM}{T^*_{\CC}M}
+\newcommand{\TM}{T M}
+\newcommand{\TsM}{T^* M}
+\newcommand{\olI}{\bar{I}}
+\newcommand{\pu}{p}
+\newcommand{\olpu}{\overline{p}}
+\newcommand{\Rep}{\nabla}
+\newcommand{\reffered}{{~~~REF~~~}}
+\newcommand{\thetagroup}{\Theta}
+\newcommand{\thetaalgebra}{\mathfrak{\theta}}
+\newcommand{\abelianideal}{\mathfrak{I}}
+\newcommand{\thetaalgebrastar}{\mathfrak{\theta}^*}
+\newcommand{\galgebra}{\mathfrak{g}}
+\newcommand{\galgebrastar}{\mathfrak{g}^*}
+\newcommand{\ggroup}{G}
+\newcommand{\inverse}[1]{{#1}^{-1}}
+\newcommand{\crossedmoduletwogroup}{ \Gamma_{\ggroup\ltimes\thetagroup} }
+\newcommand{\bicross}{\crossedmoduletriple{\thetaalgebra}{\phi}{\galgebra}}
+\newcommand{\twogroup}[2]{ \Gamma_{#1\ltimes#2}}
+\newcommand{\crossedmodulealgebra}{E_{ \galgebra\ltimes\thetaalgebra}}
+\newcommand{\twoalgebra}[2]{[ #1#2]}
+\newcommand{\gpmulti}{\diamond}
+\newcommand{\gpoidmulti}{\star}
+\newcommand{\gpinverse}[1]{{#1}^{-{\diamond}}}
+\newcommand{\gpoidinverse}[1]{{#1}^{-{\star}}}
+\newcommand{\unit}{{\bf{1}}}
+\newcommand{\source}{{\bf{s}}}
+\newcommand{\target}{{\bf{t}}}
+\newcommand{\infaction}[1]{\widetilde{#1}}
+\newcommand{\Adjoint}[1]{\mathrm{Ad}_{#1}}
+\newcommand{\adjoint}[1]{\mathrm{ad}_{#1}}
+\newcommand{\coadjoint}[1]{\mathrm{ad}^*_{#1}}
+\newcommand{\coAdjoint}[1]{\mathrm{Ad}^*_{#1}}
+\newcommand{\graft}[1]{\Delta_{#1}}
+\newcommand{\phistar}{\phi}
+\newcommand{\phiUprotate }{\phi^{\scriptscriptstyle T}}
+%\newcommand{\phistarstar}{\phi_*^*}
+\newcommand{\Id}{{\bf{1}}}
+\newcommand{\Alt}{\mathrm{Alt}}
+\newcommand{\wedgefish}[1]{ ~\langle{#1}\rangle~}
+\newcommand{\wedgeotimes}{\widehat{\otimes}}
+\newcommand{\braceotimes}{\circledast}
+\newcommand{\ddelta}{    { \delta}}
+\newcommand{\deta}{    { \eta}}
+\newcommand{\dlambda}{    { \lambda}}
+\newcommand{\skewdelta}{\ddot{\delta}}
+\newcommand{\domega}{  { \omega}}
+\newcommand{\dpi}{  { \pi}}
+\newcommand{\dPi}{   { \Pi}}
+\newcommand{\Rmatrix}{\mathbf{r}}
+\newcommand{\Smatrix}{\mathbf{s}}
+\newcommand{\Taumatrix}{\tau}
+\newcommand{\Sigmamatrix}{ \varsigma}
+\newcommand{\gltwo}{\mathrm{gl}(2)}
+\newcommand{\osquare}[1]{{#1}^{(2)}}
+\newcommand{\intpi}{\underline{\pi}}
+\newcommand{\gthetaPi}{\mathbf{\Pi}}
+\newcommand{\gthetaV}{\mathbf{V}}
+\newcommand{\gthetaC}{\mathbf{C}}
+\newcommand{\intPi}{\underline{\Pi}}
+\newcommand{\intomega}{\underline{\omega}}
+\newcommand{\intdelta}{\underline{\delta}}
+\newcommand{\intsigma}{\underline{\sigma}}
+\newcommand{\inteta}{\underline{\eta}}
+\newcommand{\intlambda}{\underline{\lambda}}
+\newcommand{\crossedmoduletriple}[3]{(#1\stackrel{#2}{\rightharpoonup}#3)}
+\newcommand{\Lietwo}[2]{E_{#2 \ltimes #1}}
+\newcommand{\Ps}{P^*}
+\newcommand{\Qs}{Q^*}
+\newcommand{\Ls}{L^*}
+\newcommand{\actedby}{\triangleleft}
+\newcommand{\groupcrossedmoduletriple}[3]{(#1\stackrel{#2}{  \Rightarrow }#3)}
+\newcommand{\sltwo}{\mathrm{sl(2)}}
+\newcommand{\eone}{e_1}
+\newcommand{\etwo}{e_2}
+\newcommand{\ethree}{e_3}
+\newcommand{\Phistar}{\Phi_*}
+\newcommand{\PhistarUprotate}{\Phi_*^T}
+
+
+\newcommand{\groupaction}{ {  \triangleright }}
+\newcommand{\mainresult}{\rood{~(Main Result)~}}
+
+
+\newcommand{\LeftTangent}[2]{\frac{(#1)}{(#2)}}
+\newcommand{\LeftcoTangent}[2]{\frac{(#1)}{(#2)}}
+\newcommand{\moduleaction}{ \triangleright}
+\newcommand{\polyvectorfields}[2]{\mathfrak{X}^{#1}(#2)}
+\newcommand{\strictmultiplicative}[2]{\mathfrak{X}^{#1}_{\mathrm{mult}}(#2)}
+\newcommand{\strictdiffpairs}[2]{\mathfrak{P}^{#1}_{\mathrm{diff}}(#2)}
+\newcommand{\phipush}{D_{\phi}}
+\newcommand{\rhopush}{D_{\rho}}
+\newcommand{\push}[2]{D^{(#1)}_{#2}}
+\newcommand{\minuspower}[1]{(-1)^{#1}}
+\newcommand{\supercommutator}[2]{\{#1,#2\}}
+\newcommand{\gradedcommutator}[2]{\lfloor #1,#2 \rfloor}
+\newcommand{\partialdifferential}{ \mathscr{D}}
+\newcommand{\gpleftmove}[1]{\overleftarrow{#1}^{\mathrm{\scriptscriptstyle gp}}}
+\newcommand{\gpoidleftmove}[1]{\overleftarrow{#1}^{\mathrm{\scriptscriptstyle gpd}}}
+\newcommand{\gpoidrightmove}[1]{\overrightarrow{#1}^{\mathrm{\scriptscriptstyle gpd}}}
+\newcommand{\LiealgebroidoverG}{A_{\ggroup\rtimes \thetaalgebra}}
+
+
+
+\newcommand{\thetaalgebradegone}{\mathrm{\theta}}
+\newcommand{\thetaalgebrastardegminustwo}{\mathrm{\theta}^*}
+\newcommand{\galgebradegzero}{\mathfrak{g}}
+\newcommand{\galgebrastardegminusone}{\mathfrak{g}^*}
+\newcommand{\phimap}{\varphi}%{l_1}
+\newcommand{\bracketmap}{b}%{l_2^1}
+\newcommand{\bracketmapbracket}[2]{[#1,#2]_b}%{l_2^1}
+\newcommand{\actionmap}{a}%{l_2^2}
+\newcommand{\actionmapaction}[2]{#1 \succ #2}%{l_2^2}
+\newcommand{\homotopymap}{h}%{l_3}
+\newcommand{\cophimap}{\psi}%{c_1}
+\newcommand{\cobracketmap}{\omega}%{c_2^1}
+\newcommand{\coactionmap}{ \tilde{\delta}}%{c_2^2}
+\newcommand{\cohomotopymap}{\tilde{\eta}}%{c_3}
+
+\newcommand{\symmetricproduct}{{\scriptstyle \odot}\,}
+\newcommand{\asymmetricproduct}{\wedge}
+\newcommand{\symmetricalgebra}{\mathcal{S}}
+\newcommand{\derivedby}[1]{ {D}_{#1}}
+\newcommand{\Sbullet}{S^\bullet}
+\newcommand{\sabs}[1]{\breve{\left\vert#1\right\vert}}
+\newcommand{\tobefilledin}{\,\stackrel{\centerdot}{}\,}
+\newcommand{\Linf}{L_{\infty}}
+\newcommand{\degreesubspace}[2]{{#1}^{(#2)}}
+
+\newcommand{\Vs}{V^*}
+\newcommand{\US}{\mathfrak{US}}
+
+\newcommand{\Us}{U^*}
+\newcommand{\Koszul}[1]{\epsilon(#1)}
+\newcommand{\hatl}[1]{\hat{l}_{#1}}
+\newcommand{\shiftby}[2]{{#1}{\scriptstyle{[#2]}}}
+\newcommand{\fullaction}[1]{\widehat{#1}} \pagestyle{plain}
+
+
+\newcommand{\deciso}{\mathrm{dec}}
+
+\newcommand{\ipG}[2]{(#1,#2)^{\galgebra}}
+\newcommand{\plankconstant}{\hbar}
+
+\newcommand{\structuresheaf}{\mathcal{A}}
+
+\newcommand{\polyS}{S_{\mathrm{pol}}}
+\newcommand{\subS}[2]{\symmetricalgebra^{#1,#2}}
+\newcommand{\minusoneshift}{^{\scriptscriptstyle[-1]}}
+
+\newcommand{\groupdifferential}[1]{\partial^{\mathrm{\scriptscriptstyle gp}}_{#1}}
+\newcommand{\groupoiddifferential}[1]{\partial^{\mathrm{\scriptscriptstyle gpd}}_{#1}}
+
+
+\newcommand{\wedgedelta}{\widehat{\delta}}
+\newcommand{\wedgeomega}{\widehat{\omega}}
+\newcommand{\algebracrossedmodulemap}{\phi}
+
+
+%\geometry{textwidth=140mm,headheight=12pt,footskip=1cm,headsep=6pt,top=20mm,bottom=20mm}
+\hypersetup{pdfpagemode=UseOutlines,colorlinks=false,pdfpagelayout=SinglePage,pdfstartview=FitH,bookmarksopen=true}
+
+\begin{document}
+
+\title{Dropout Neural Network Algorithm Review
+}
+\author{\textsc{Yucen Luo}  \\
+{\small Department of Electronic Engineering, Tsinghua University} \\
+{\small
+\href{mailto:luoyucen9322@163.com}{\texttt{luoyucen9322@163.com}}} }
+
+
+\date{2014/Nov/22}
+
+\maketitle
+
+ %\tableofcontents
+ \section{Dropout Algorithm}
+ Consider a neural network with L hidden layers.Let $l \in \{1,...,L\}$ index the hidden layers of the network. Let $\textbf{z} ^{(l)}$ denote the vector of inputs into layer $l$, $\textbf{a} ^{(l)}$ denote the vector of outputs from layer $l$ ($\textbf{a} ^{(0)}$ = \textbf{x} is the input and $\textbf{a} ^{(L+1)}$ is the output ). $\textbf{W} ^{(l)}$ and $\textbf{b} ^{(l)}$ are the weights and biaes at layer $l$. The feed-forward process of the training data is as follows:
+\begin{algorithm}
+\caption{Dropout Model Description}
+\textbf{Input}: \textbf{x}, weight matrix \textbf{W}, bias matrix \textbf{b} and activation function $f$\\
+\textbf{Output}: \textbf{a},\textbf{z}
+\begin{algorithmic}[1]
+\State $a^{(0)} = x$
+\State $z_i^{(1)} = \textbf{w}_i^{(1)}\textbf{a}^{(0)}+b_i^{(1)}$
+\For{$l = 1 \to L$}
+\State $r_j^{(l)}$ $\sim$ Bernoulli($p$)
+\State $\textbf{\~ a} ^{(l)}$ = $\textbf{r} ^{(l)}$ * $\textbf{a} ^{(l)}$
+\State $z_i^{(l+1)} = \textbf{w}_i^{(l+1)}\textbf{\~a}^l+b_i^{(l+1)}$
+\State $a_i^{(l+1)} = f(z_i^{(l+1)})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\\
+ For test data, the weights for trained network are scaled as $W_{test}^{(l)} = (1-p)W^{(l)}$.\\
+ Correspondingly, the back propagation process is modified for dropout algorithm. Dropout neural networks can be trained using stochastic gradient descent similar to standard neural nets. The only difference is that for each training case in a mini-batch, we sample a thinned network by dropping out units. Forward and back propagation for that training case are done only on this thinned network. The gradients for each parameter are averaged over the training cases in each mini-batch.\\
+ One useful form of regularization for dropout--constraining the norm of the incoming weight vector at each hidden unit to be upper bounded by a fixed constant $c$. This is also called max-norm regularization in which $||w||_2 \leq c$. The constant $c$ is a tunable hyperparameter, which is determined using a validation set.\\
+ Here are the highlighted matlab code different from standard neural networks.\\
+ In the feed forward part for training and test data:
+ \newpage
+\begin{lstlisting}
+for i = 1:L
+...
+if(nn.dropoutFraction > 0)
+    if(nn.testing)
+        nn.a{i} = nn.a{i}.*(1 - nn.dropoutFraction);% a{i} is the output of hidden layer i
+    else
+        nn.dropOutMask{i} = (rand(size(nn.a{i}))>nn.dropoutFraction);
+        nn.a{i} = nn.a{i}.*nn.dropOutMask{i};
+    end
+end
+...
+end
+\end{lstlisting}
+And in the back propagation part:
+\begin{lstlisting}
+...
+if(nn.dropoutFraction>0)
+    delta{i} = delta{i} .* [ones(size(d{i},1),1) nn.dropOutMask{i}];%delta{i} is the backprop error of layer i
+end
+...
+\end{lstlisting}
+
+The remaining parts are the same as standard neural network.\\
+Then we present the best results on the demo dataset \textbf{XinZhongGuan}.
+
+F3.A Missclassification error with dropout: 15.38\% without dropout: 28.6\%\\
+parameters:\\
+One Hidden Layer:70 units\\
+L2weightPenalty = 0;\\
+LearningRate = 2;\\
+Momentum = 0.5;\\
+Numepoches = 17;\\
+Batchsize = 50;\\
+
+F1.A Missclassification error with dropout: 5.4\% without dropout: 26.6\%\\
+parameters:\\
+Two Hidden Layer:200 units and 60 units\\
+L2weightPenalty = 0;\\
+LearningRate = 2;\\
+Momentum = 0.5;\\
+Numepoches = 40;\\
+Batchsize = 50;\\
+\newpage
+Appendix:[The Whole Framework of Dropout Algorithm]\\
+Note: All the indices begin at 1.
+ \begin{algorithm}
+\caption{Dropout Neural Network Training}
+\textbf{Input}: training sample set \textbf{x,y} \\
+\textbf{x} is a $m$ by $p$ matrix, each row is a sample with p features\\
+\textbf{y} is a $m$ by $k$ matrix, k is the number of labels. Each row is the vectorized output \\eg.a sample labeled 3 is [0 0 1 0... 0]\\
+\textbf{Output}: trained neural network $nn$\\
+\textbf{Initialize the neural network nn}:\\
+\emph{nn.n}: the number of layers including $1$ input layer, $n-2$ hidden layers, $1$ output layer\\
+\emph{nn.size}: a vector recording the number of units of each layer. size[1] = p, size[n] = k\\
+\textbf{Initialize the parameters}:\\
+\emph{nn.activationFunction}: the activation function for hidden layers (sigmoid, tanh, linear, softsign)\\
+\emph{nn.outputFunction}: the activation function for output layer (sigmoid, softmax, tanh, linear)\\
+\emph{nn.learningRate}\\
+\emph{nn.scalingLearningRate}: Scaling factor for the learning rate after each epoch\\
+\emph{nn.momentum}\\
+\emph{nn.weightPenaltyL2}\\
+\emph{nn.dropoutFraction}\\
+\emph{numepochs}: number of epoches\\
+\emph{batchsize}: number of samples in each mini-batch \\
+\textbf{Initialize the weight matrix and weight momentum}:\\
+\emph{nn.a}\\
+\emph{nn.dW}\\
+\emph{nn.W}\\
+\emph{nn.vW}\\
+\emph{nn.e}
+\begin{algorithmic}[1]
+\For{$i = 1 \to numepoches$}
+\State randomly perturb the order of m samples, update x and y
+\State m = size(x, 1)
+\State numbatches = m/batchsize
+\For{$l = 1 \to nn.numbatches$}
+\State batchx = x((l - 1) * batchsize + 1 : l * batchsize, : )
+\State batchy = y((l - 1) * batchsize + 1 : l * batchsize, : )
+\State nn = Feedforward(nn, batchx, batchy)
+\State nn = Backpropagation(nn);
+\State nn = Gradient(nn);
+\EndFor
+\State nn.learningRate = nn.learningRate * nn.scalingLearningRate;
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Feedforward}
+\textbf{Input}: \textbf{nn}, \textbf{x}, \textbf{y}\\
+\textbf{Output}: \textbf{nn}
+\begin{algorithmic}[1]
+\State x = [ones(m,1) x]
+\State nn.a\{1\} = x
+\For{$i = 2 \to n-1$}
+\State nn.a\{i\} = nn.a\{i - 1\} * nn.W\{i - 1\}'
+\State nn.a\{i\} = activationFunction(nn.a\{i\})
+\State \textcolor{red}{nn.dropOutMask\{i\} = (rand(size(nn.a\{i\}))$>$nn.dropoutFraction)}
+\State \textcolor{red}{nn.a\{i\} = nn.a\{i\}.*nn.dropOutMask\{i\}}
+\State nn.a\{i\} = [ones(m,1) nn.a\{i\}];
+\EndFor
+\State nn.a\{n\} = outputFunction(nn.a\{n - 1\} * nn.W\{n - 1\}')\%transpose
+\State nn.e = y - nn.a\{n\}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Backprogagation}
+\textbf{Input}: \textbf{nn}\\
+\textbf{Output}: \textbf{nn}
+\begin{algorithmic}[1]
+\State delta\{n\} = - nn.e .* outputFunction'(a\{n\});\%first derivative of outputFunction
+\For{ $i = n-1 \to 2$}
+\If{i+1 == n} \% in this case in delta\{n\} there is not the bias term to be removed
+\State delta\{i\} = (delta\{i + 1\} * nn.W\{i\}) .* activationFunction'(a\{i\})
+\Else
+\State delta\{i\} = (delta\{i + 1\}(:,2:end) * nn.W\{i\} ) .* outputFunction'(a\{n\})
+\EndIf
+\State \textcolor{red}{delta\{i\} = d\{i\} .* [ones(size(d\{i\},1),1), nn.dropOutMask\{i\}]}
+\EndFor
+\For{$i = 1 \to n-1$}
+\If{i+1 == n} 
+\State nn.dW\{i\} = (d\{i + 1\}' * nn.a\{i\}) / m
+\Else
+\State nn.dW\{i\} = (d\{i + 1\}(:,2:end)' * nn.a\{i\}) / m
+\EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Gradient}
+\textbf{Input}: \textbf{nn}\\
+\textbf{Output}: \textbf{nn}
+\begin{algorithmic}[1]
+\For{$i = 1: n-1$}
+\If{nn.weightPenaltyL2 $>$ 0}
+\State dW = nn.dW\{i\} + nn.weightPenaltyL2 * [zeros(m,1) nn.W\{i\}(:,2:end)]
+\Else
+\State dW = nn.dW\{i\}
+\EndIf
+\State dW = nn.learningRate * dW;
+\If{nn.momentum $>$ 0}
+\State nn.vW\{i\} = nn.momentum*nn.vW\{i\} + dW
+\State dW = nn.vW\{i\}
+\EndIf
+\State nn.W\{i\} = nn.W\{i\} - dW
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+
+\end{document}
